@@ -1,24 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Button } from "../UI/Button";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { deleteBasketItem, updateBasket } from "../../store/BasketReducer";
+import { decrementAmount, incrementAmount } from "../../store/BasketReducer";
 
 export const BasketItem = ({ id, title, price, amount }) => {
   const dispatch = useDispatch();
 
-  // const { Increment, decrement } = useContext(CardContext);
-
-  const decrementAmount = (id, amount) => {
-    if (amount !== 0) {
-      dispatch(updateBasket(id, amount - 1));
-    } else {
-      dispatch(deleteBasketItem(id));
-    }
+  const increment = (id, amount) => {
+    dispatch(incrementAmount(id, amount));
   };
 
-  const incrementAmount = (id, amount) => {
-    dispatch(updateBasket(id, amount + 1));
+  const decrement = (id, amount) => {
+    dispatch(decrementAmount(id, amount - 1));
   };
 
   return (
@@ -34,14 +28,14 @@ export const BasketItem = ({ id, title, price, amount }) => {
           <Button
             borderRadius="squared"
             variant="outlined"
-            onClick={() => decrementAmount(id, amount)}
+            onClick={() => decrement(id, amount)}
           >
             -
           </Button>
           <Button
             borderRadius="squared"
             variant="outlined"
-            onClick={() => incrementAmount(id, amount)}
+            onClick={() => increment(id, amount)}
           >
             +
           </Button>

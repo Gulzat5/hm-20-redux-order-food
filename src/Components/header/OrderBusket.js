@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { ReactComponent as BasketIcon } from "../../assets/icons/Group.svg";
 import { useContext, useEffect, useState } from "react";
 import { CardContext } from "../../store/Card-contex";
+import { useSelector } from "react-redux";
 
 export const OrdetBusket = ({ children, onToggle }) => {
   const contex = useContext(CardContext);
-  const { items } = useContext(CardContext);
   const [animation, setAnimation] = useState();
+  const { basket } = useSelector((state) => state.basket);
   useEffect(() => {
     setAnimation("bit");
     const id = setTimeout(() => {
@@ -15,9 +16,9 @@ export const OrdetBusket = ({ children, onToggle }) => {
     return () => {
       clearTimeout(id);
     };
-  }, [contex.AddItem]);
+  }, [basket]);
 
-  const amount = items?.reduce((prev, current) => +prev + current.amount, 0);
+  const amount = basket?.reduce((prev, current) => prev + current.amount, 0);
 
   return (
     <Button onClick={onToggle} className={animation}>

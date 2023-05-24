@@ -4,11 +4,7 @@ import { BasketItem } from "./BasketItem";
 import { TotalAmount } from "./TotalAmount";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteBasketItem,
-  getBasket,
-  updateBasket,
-} from "../../store/BasketReducer";
+import { getBasket } from "../../store/BasketReducer";
 export const Basket = ({ onToggle }) => {
   const { basket } = useSelector((state) => state.basket);
   const dispatch = useDispatch();

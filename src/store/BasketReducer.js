@@ -9,7 +9,7 @@ const initialState = {
 const basketTypes = {
   GET_BASKET: "GET_BASKET",
   INCREMENT_BASKET_ITEM: "INCREMENT_BASKET_ITEM",
-  DECREMENT_BASEKET_ITEM: "DECREMENT_BASEKET_ITEM",
+  DECREMENT_BASKET_ITEM: "DECREMENT_BASEKET_ITEM",
   DELETE_ITEM: "DELETE_ITEM",
 };
 
@@ -23,6 +23,17 @@ export const basketReducer = (state = initialState, action) => {
     case basketTypes.INCREMENT_BASKET_ITEM:
       return {
         ...state,
+        basket: action.payload,
+      };
+    case basketTypes.DECREMENT_BASKET_ITEM:
+      return {
+        ...state,
+        basket: action.payload,
+      };
+    case basketTypes.DELETE_ITEM:
+      return {
+        ...state,
+        basket: action.payload,
       };
     default:
       return state;
@@ -43,18 +54,18 @@ export const getBasket = () => {
   };
 };
 
-export const deleteBasketItem = (id) => () => {
-  return async (dispatch) => {
-    try {
-      await fetchRequest(`/basketItem/${id}/delete`, {
-        method: "DELETE",
-      });
-      dispatch(getBasket());
-    } catch (error) {
-      new Error("error");
-    }
-  };
-};
+// export const deleteBasketItem = (id) => () => {
+//   return async (dispatch) => {
+//     try {
+//       await fetchRequest(`/basketItem/${id}/delete`, {
+//         method: "DELETE",
+//       });
+//       dispatch(getBasket());
+//     } catch (error) {
+//       new Error("error");
+//     }
+//   };
+// };
 // export const updateBasket = (id, amount) => {
 //   return async (dispatch) => {
 //     try {
@@ -93,7 +104,7 @@ export function decrementAmount(id, amount) {
         body: { amount: amount },
       });
       dispatch({
-        type: basketTypes.DECREMENT_BASEKET_ITEM,
+        type: basketTypes.DECREMENT_BASKET_ITEM,
         payload: responce.items,
       });
     } else {
@@ -102,7 +113,7 @@ export function decrementAmount(id, amount) {
       });
 
       dispatch({
-        type: basketTypes.DECREMENT_BASEKET_ITEM,
+        type: basketTypes.DELETE_ITEM,
         payload: responce.items,
       });
     }
